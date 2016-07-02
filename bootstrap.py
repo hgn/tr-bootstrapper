@@ -67,6 +67,8 @@ def prepare_guest_environment():
 
 def do(args):
     hostname = socket.gethostname()
+    if args.name:
+        hostname = args.name
     log.debug('hostname {}'.format(hostname))
     ok, path = prepare_paths(hostname)
     if not ok:
@@ -86,6 +88,7 @@ def parse_command_line(argv):
     parser.add_argument("-v", "--verbose", dest="verbose_count",
                         action="count", default=0,
                         help="increases log verbosity for each occurence.")
+    parser.add_argument('-n','--name', help='allow to overwrite hostname', required=False)
     arguments = parser.parse_args(argv[1:])
     log.setLevel(max(2 - arguments.verbose_count, 0) * 10)
     return arguments
