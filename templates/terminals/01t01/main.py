@@ -2,9 +2,9 @@ import os
 import shutil
 
 def install_packages(utils):
-    packages = "git tcpdump python3-flask build-essential strace smcroute bison flex gdb "
+    packages = "git tcpdump python3-flask build-essential strace smcroute bison flex gdb python3-pip "
     # performacne test tools
-    packages += "iperf3 netperf netcat-openbsd hping3 perf-tools-unstable"
+    packages += " iperf3 netperf netcat-openbsd hping3 perf-tools-unstable "
     utils.install_packages(packages)
 
 def install_config_files(utils):
@@ -35,6 +35,7 @@ def prepare_src_dir(utils, p):
     os.makedirs(p)
 
 def clone_repos(utils, p):
+    utils.exec("sudo pip3 install python3-protobuf")
     utils.exec("git clone https://github.com/hgn/mcast-discovery-daemon.git")
     utils.exec("git clone https://github.com/hgn/ipproof.git")
     utils.exec("chown -R admin:admin {}".format(p))
