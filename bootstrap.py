@@ -7,6 +7,7 @@ import argparse
 import socket
 import os
 import inspect
+import shutil
 
 __version__ = "v1"
 
@@ -16,9 +17,11 @@ log = logging.getLogger(module)
 class Utils:
 
 
-    def __init__(self, log):
+    def __init__(self, log, path):
         tmp = os.path.split(inspect.getfile(inspect.currentframe()))[0]
-        self.app_root_dir = os.path.realpath(os.path.abspath(tmp))
+        self.path_app = os.path.realpath(os.path.abspath(tmp))
+        self.path_mod = path
+        self.path_home = os.environ['HOME']
         self.log = log
 
     def exec(self, args):
@@ -34,8 +37,12 @@ class Utils:
         log.info("install required packages")
         self.exec("sudo sudo aptitude --assume-yes -Z install {}".format(packages))
 
+    def copytree(src, dst):
+        shutil.copytree(src, dst)
+
 def prepare_paths(searched_name):
     tmp = os.path.split(inspect.getfile(inspect.currentframe()))[0]
+    tmp = os.path.realpath(os.path.abspath(tmp))
 
     cmd_folder = os.path.realpath(os.path.abspath(tmp))
     if cmd_folder not in sys.path:
@@ -49,9 +56,9 @@ def prepare_paths(searched_name):
             if searched_name == entry:
                 f = os.path.join(t, entry)
                 sys.path.insert(0, f)
-                return True
+                return True, f
 
-    return False
+    return False, None
 
 def prepare_guest_environment():
     homedir = os.environ['HOME']
@@ -61,12 +68,12 @@ def prepare_guest_environment():
 def do(args):
     hostname = socket.gethostname()
     log.debug('hostname {}'.format(hostname))
-    ok = prepare_paths(hostname)
+    ok, path = prepare_paths(hostname)
     if not ok:
         log.error('hostname not in DB {}'.format(hostname))
         return 1
     m = __import__("main")
-    utils = Utils(log)
+    utils = Utils(log, path)
     prepare_guest_environment()
     m.main(utils)
 
