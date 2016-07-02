@@ -2,7 +2,9 @@ import os
 import shutil
 
 def install_packages(utils):
-    packages = "git tcpdump python3-flask build-essential strace smcroute bison flex gdb"
+    packages = "git tcpdump python3-flask build-essential strace smcroute bison flex gdb "
+    # performacne test tools
+    packages += "iperf3 netperf netcat-openbsd hping3 perf-tools-unstable"
     utils.install_packages(packages)
 
 def install_config_files(utils):
