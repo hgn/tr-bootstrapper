@@ -2,7 +2,7 @@ import os
 import shutil
 
 def install_packages(utils):
-    packages = "git tcpdump python3-flask build-essential smcroute bison flex gdb"
+    packages = "git tcpdump python3-flask build-essential strace smcroute bison flex gdb"
     utils.install_packages(packages)
 
 def install_config_files(utils):
