@@ -44,8 +44,9 @@ def setup_olsrd(utils, p):
     os.chdir(p)
 
 def setup_third_pary_daemons(utils):
-    p = os.path.join(utils.path_home, "src", "daemons")
     orig_dir = os.getcwd()
+    p = os.path.join(utils.path_home, "src", "daemons")
+    os.chdir(p)
     prepare_src_dir(utils, p)
     setup_misc_apps(utils, p)
     setup_olsrd(utils, p)
