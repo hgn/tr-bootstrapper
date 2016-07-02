@@ -38,7 +38,7 @@ def clone_repos(utils, p):
 
 def setup_third_pary_daemons(utils):
     p = os.path.join(utils.path_home, "src", "daemons")
-    orig_dir = os.pwd()
+    orig_dir = os.getcwd()
     prepare_src_dir(utils, p)
     clone_repos(utils, p)
     os.chdir(orig_dir)
