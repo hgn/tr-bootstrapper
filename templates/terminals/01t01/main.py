@@ -28,7 +28,8 @@ def setup_distribution(utils):
     start_services(utils)
 
 def prepare_src_dir(utils, p):
-    shutil.rmtree(p)
+    if os.path.isdir(p):
+        shutil.rmtree(p)
     os.makedirs(p)
 
 def clone_repos(utils, p):
