@@ -37,7 +37,7 @@ class Utils:
         log.info("install required packages")
         self.exec("sudo sudo aptitude --assume-yes -Z install {}".format(packages))
 
-    def copytree(src, dst):
+    def copytree(self, src, dst):
         shutil.copytree(src, dst)
 
 def prepare_paths(searched_name):
