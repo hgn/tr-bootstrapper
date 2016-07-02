@@ -11,12 +11,12 @@ def install_config_files(utils):
     for dirname, dirnames, filenames in os.walk(fs_copy_root):
         for filename in filenames:
             src = os.path.join(dirname, filename)
-            dst = src[len(fs_copy_root)]
+            dst = src[len(fs_copy_root):]
             utils.log.info("copy {} to {}".format(src, dst))
             path = os.path.dirname(dst)
             if not os.path.isdir(path):
-                os.makedirs(path)
-            shutil.copy2(src, dst)
+                utils.exec("sudo mkdir -p {}".format(path))
+            utils.exec("sudo cp {} {}".format(src, dst))
 
 def start_services(utils):
     utils.exec("sudo systemctl enable smcroute")
