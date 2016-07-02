@@ -14,8 +14,25 @@ module = sys.modules['__main__'].__file__
 log = logging.getLogger(module)
 
 class Utils:
+
+
+    def __init__(self, log):
+        tmp = os.path.split(inspect.getfile(inspect.currentframe()))[0]
+        self.app_root_dir = os.path.realpath(os.path.abspath(tmp))
+        self.log = log
+
     def exec(self, args):
         os.system(args)
+
+    def install_packages(self, packages):
+        log.info("update package list")
+        self.exec("sudo apt-get update")
+
+        log.info("install aptitude")
+        self.exec("sudo apt-get -y install aptitude")
+
+        log.info("install required packages")
+        self.exec("sudo sudo aptitude --assume-yes -Z install {}".format(packages))
 
 def prepare_paths(searched_name):
     tmp = os.path.split(inspect.getfile(inspect.currentframe()))[0]
@@ -35,7 +52,11 @@ def prepare_paths(searched_name):
                 return True
 
     return False
-            
+
+def prepare_guest_environment():
+    homedir = os.environ['HOME']
+    log.debug("change working diretory to {}".format(homedir))
+    os.chdir(homedir)
 
 def do(args):
     hostname = socket.gethostname()
@@ -45,7 +66,8 @@ def do(args):
         log.error('hostname not in DB {}'.format(hostname))
         return 1
     m = __import__("main")
-    utils = Utils()
+    utils = Utils(log)
+    prepare_guest_environment()
     m.main(utils)
 
 def parse_command_line(argv):
