@@ -10,9 +10,9 @@ def install_config_files(utils):
     fs_copy_root = os.path.join(d, "shared", "fs-copy")
     for dirname, dirnames, filenames in os.walk(fs_copy_root):
         for filename in filenames:
-            utils.log.info("copy {} to {}".format(src, dst))
             src = os.path.join(dirname, filename)
             dst = src[len(fs_copy_root)]
+            utils.log.info("copy {} to {}".format(src, dst))
             path = os.path.dirname(dst)
             if not os.path.isdir(path):
                 os.makedirs(path)
