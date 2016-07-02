@@ -30,6 +30,7 @@ def prepare_src_dir(utils, p):
     if os.path.isdir(p):
         shutil.rmtree(p)
     os.makedirs(p)
+    os.chdir(p)
 
 def setup_misc_apps(utils, p):
     utils.exec("git clone https://github.com/hgn/mcast-discovery-daemon.git")
@@ -46,7 +47,6 @@ def setup_olsrd(utils, p):
 def setup_third_pary_daemons(utils):
     orig_dir = os.getcwd()
     p = os.path.join(utils.path_home, "src", "daemons")
-    os.chdir(p)
     prepare_src_dir(utils, p)
     setup_misc_apps(utils, p)
     setup_olsrd(utils, p)
