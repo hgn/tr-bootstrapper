@@ -50,8 +50,8 @@ class Utils:
                 log.info("copy {} to {}".format(src, dst))
                 path = os.path.dirname(dst)
                 if not os.path.isdir(path):
-                    utils.exec("sudo mkdir -p {}".format(path))
-                utils.exec("sudo cp {} {}".format(src, dst))
+                    self.exec("sudo mkdir -p {}".format(path))
+                self.exec("sudo cp {} {}".format(src, dst))
         if script:
             if self.__is_exec(script):
                 self.exec(script)
