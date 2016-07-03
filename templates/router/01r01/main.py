@@ -2,30 +2,31 @@ import os
 import shutil
 
 def install_packages(utils):
-    packages = "git tcpdump python3-flask build-essential bison flex gdb strace "
+    packages = "tcpdump python3-flask build-essential bison flex gdb strace screen zsh "
     # performacne test tools, just make sure everybody is happy
     packages += "iperf3 netperf netcat-openbsd hping3 perf-tools-unstable"
     utils.install_packages(packages)
 
-def install_config_files(utils):
-    d = os.path.dirname(utils.path_mod)
-    fs_copy_root = os.path.join(d, "shared", "fs-copy")
-    for dirname, dirnames, filenames in os.walk(fs_copy_root):
-        for filename in filenames:
-            src = os.path.join(dirname, filename)
-            dst = src[len(fs_copy_root):]
-            utils.log.info("copy {} to {}".format(src, dst))
-            path = os.path.dirname(dst)
-            if not os.path.isdir(path):
-                utils.exec("sudo mkdir -p {}".format(path))
-            utils.exec("sudo cp {} {}".format(src, dst))
+def copy_global_shared_tree(utils):
+    shared_dir = os.path.join(os.path.dirname(utils.path_app), "templates", "shared")
+    fs_copy_root = os.path.join(shared_dir, "fs-copy")
+    fs_copy_root_script = os.path.join(shared_dir, "fs-copy-finish.py")
+    utils.copy_tree(fs_copy_root, script=fs_copy_root_script)
+
+
+def copy_router_shared_tree(utils):
+    shared_dir = os.path.join(os.path.dirname(utils.path_mod), "shared")
+    fs_copy_root = os.path.join(shared_dir, "fs-copy")
+    fs_copy_root_script = os.path.join(shared_dir, "fs-copy-finish.py")
+    utils.copy_tree(fs_copy_root, script=fs_copy_root_script)
 
 def start_services(utils):
     pass
 
 def setup_distribution(utils):
     install_packages(utils)
-    install_config_files(utils)
+    copy_global_shared_tree(utils)
+    copy_router_shared_tree(utils)
     start_services(utils)
 
 def prepare_src_dir(utils, p):

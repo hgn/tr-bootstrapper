@@ -37,8 +37,28 @@ class Utils:
         log.info("install required packages")
         self.exec("sudo sudo aptitude --assume-yes -Z install {}".format(packages))
 
-    def copytree(self, src, dst):
-        shutil.copytree(src, dst)
+    def __is_exec(self, path):
+        if os.path.isfile(fpath) and os.access(fpath, os.X_OK):
+            return True
+        return False
+
+    def copy_tree(self, root_dir, script=None):
+        for dirname, dirnames, filenames in os.walk(root_dir):
+            for filename in filenames:
+                src = os.path.join(dirname, filename)
+                dst = src[len(root_dir):]
+                utils.log.info("copy {} to {}".format(src, dst))
+                path = os.path.dirname(dst)
+                if not os.path.isdir(path):
+                    utils.exec("sudo mkdir -p {}".format(path))
+                utils.exec("sudo cp {} {}".format(src, dst))
+        if exec_script:
+            if __is_exec(exec_script):
+                self.exec(exec_script)
+            else:
+                log.error("cannot execute script: {}".format(exec_script))
+
+
 
 def prepare_paths(searched_name):
     tmp = os.path.split(inspect.getfile(inspect.currentframe()))[0]

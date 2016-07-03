@@ -1,0 +1,10 @@
+[Unit]
+Description=Load a shell script which is executed at the end of boot
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/finalizer.sh
+
+[Install]
+WantedBy=multi-user.target
+
