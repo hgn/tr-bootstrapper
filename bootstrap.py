@@ -52,11 +52,11 @@ class Utils:
                 if not os.path.isdir(path):
                     utils.exec("sudo mkdir -p {}".format(path))
                 utils.exec("sudo cp {} {}".format(src, dst))
-        if exec_script:
-            if __is_exec(exec_script):
-                self.exec(exec_script)
+        if script:
+            if __is_exec(script):
+                self.exec(script)
             else:
-                log.error("cannot execute script: {}".format(exec_script))
+                log.error("cannot execute script: {}".format(script))
 
 
 
