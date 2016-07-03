@@ -53,7 +53,7 @@ class Utils:
                     utils.exec("sudo mkdir -p {}".format(path))
                 utils.exec("sudo cp {} {}".format(src, dst))
         if script:
-            if __is_exec(script):
+            if self.__is_exec(script):
                 self.exec(script)
             else:
                 log.error("cannot execute script: {}".format(script))
