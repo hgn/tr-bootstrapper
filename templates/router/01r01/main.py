@@ -8,7 +8,7 @@ def install_packages(utils):
     utils.install_packages(packages)
 
 def copy_global_shared_tree(utils):
-    shared_dir = os.path.join(os.path.dirname(utils.path_app), "templates", "shared")
+    shared_dir = os.path.join(utils.path_app, "templates", "shared")
     fs_copy_root = os.path.join(shared_dir, "fs-copy")
     fs_copy_root_script = os.path.join(shared_dir, "fs-copy-finish.py")
     utils.copy_tree(fs_copy_root, script=fs_copy_root_script)
