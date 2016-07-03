@@ -18,8 +18,7 @@ class Utils:
 
 
     def __init__(self, log, path):
-        tmp = os.path.split(inspect.getfile(inspect.currentframe()))[0]
-        self.path_app = os.path.realpath(os.path.abspath(tmp))
+        self.path_app = os.path.dirname(os.path.realpath(__file__))
         self.path_mod = path
         self.path_home = os.environ['HOME']
         self.log = log
@@ -43,6 +42,7 @@ class Utils:
         return False
 
     def copy_tree(self, root_dir, script=None):
+        log.info("copy recursively: {}".format(root_dir))
         for dirname, dirnames, filenames in os.walk(root_dir):
             for filename in filenames:
                 src = os.path.join(dirname, filename)
@@ -54,6 +54,7 @@ class Utils:
                 self.exec("sudo cp {} {}".format(src, dst))
         if script:
             if self.__is_exec(script):
+                log.info("execute script: {}".format(script))
                 self.exec(script)
             else:
                 log.error("cannot execute script: {}".format(script))
