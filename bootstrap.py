@@ -47,7 +47,7 @@ class Utils:
             for filename in filenames:
                 src = os.path.join(dirname, filename)
                 dst = src[len(root_dir):]
-                utils.log.info("copy {} to {}".format(src, dst))
+                log.info("copy {} to {}".format(src, dst))
                 path = os.path.dirname(dst)
                 if not os.path.isdir(path):
                     utils.exec("sudo mkdir -p {}".format(path))
