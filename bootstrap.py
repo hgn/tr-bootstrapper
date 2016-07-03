@@ -38,7 +38,7 @@ class Utils:
         self.exec("sudo sudo aptitude --assume-yes -Z install {}".format(packages))
 
     def __is_exec(self, path):
-        if os.path.isfile(fpath) and os.access(fpath, os.X_OK):
+        if os.path.isfile(path) and os.access(path, os.X_OK):
             return True
         return False
 
