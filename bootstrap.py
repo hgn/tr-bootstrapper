@@ -69,7 +69,7 @@ def prepare_paths(searched_name):
     if cmd_folder not in sys.path:
         sys.path.insert(0, cmd_folder)
 
-    dirs = ["terminals", "router"]
+    dirs = ["terminals", "router", "ue"]
     for dir_entry in dirs:
         t = os.path.join(tmp, os.path.join("templates", dir_entry))
         dirs = os.listdir(t)
