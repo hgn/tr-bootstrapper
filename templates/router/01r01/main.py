@@ -2,7 +2,7 @@ import os
 import shutil
 
 def install_packages(utils):
-    packages = "tcpdump python3 python3-aiohttp build-essential bison flex gdb strace screen zsh "
+    packages = "tcpdump python3 python3-aiohttp nftables build-essential bison flex gdb strace screen zsh "
     # performacne test tools, just make sure everybody is happy
     packages += "iperf3 netcat-openbsd hping3 perf-tools-unstable"
     utils.install_packages(packages)
