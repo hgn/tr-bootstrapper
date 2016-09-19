@@ -38,7 +38,7 @@ def prepare_src_dir(utils, p):
 def setup_misc_apps(utils, p):
     utils.exec("git clone https://github.com/hgn/mcast-discovery-daemon.git")
     utils.exec("git clone https://github.com/hgn/ipproof.git")
-    utils.exec("chown -R admin:admin {}".format(p))
+    utils.exec("chown -R superuser:superuser {}".format(p))
 
 def setup_olsrd(utils, p):
     utils.exec("git clone https://github.com/hgn/tr-olsrd-v1.git")
