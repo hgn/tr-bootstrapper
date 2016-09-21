@@ -5,6 +5,8 @@ def install_packages(utils):
     packages = "tcpdump python3 strace"
     # performacne test tools, just make sure everybody is happy
     packages += "iperf3 netcat-openbsd hping3"
+    # utils
+    packages += "bash-completion man"
     utils.install_packages(packages)
 
 def copy_global_shared_tree(utils):

@@ -5,6 +5,8 @@ def install_packages(utils):
     packages = "tcpdump python3-flask build-essential strace smcroute bison flex gdb screen zsh "
     # performacne test tools
     packages += "iperf3 netperf netcat-openbsd hping3 perf-tools-unstable"
+    # utils
+    packages += "bash-completion man"
     utils.install_packages(packages)
 
 def copy_global_shared_tree(utils):
