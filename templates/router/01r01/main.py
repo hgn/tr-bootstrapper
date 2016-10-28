@@ -51,12 +51,30 @@ def setup_olsrd(utils, p):
     utils.exec("sudo make install_all")
     os.chdir(p)
 
+def setup_mdvrd(utils, p):
+    utils.exec("git clone https://github.com:hgn/mdvrd.git")
+    os.chdir("{}".format(os.path.join(p, "mdvrd")))
+    utils.exec("sudo make install_deps")
+    utils.exec("sudo make install")
+    utils.exec("sudo systemctl daemon-reload")
+    os.chdir(p)
+
+def setup_ohnld(utils, p):
+    utils.exec("git clone https://github.com:hgn/ohnld.git")
+    os.chdir("{}".format(os.path.join(p, "ohnld")))
+    utils.exec("sudo make install_deps")
+    utils.exec("sudo make install")
+    utils.exec("sudo systemctl daemon-reload")
+    os.chdir(p)
+
 def setup_third_pary_daemons(utils):
     orig_dir = os.getcwd()
     p = os.path.join(utils.path_home, "src", "daemons")
     prepare_src_dir(utils, p)
     setup_misc_apps(utils, p)
     setup_olsrd(utils, p)
+    setup_mdvrd(utils, p)
+    setup_ohnld(utils, p)
     os.chdir(orig_dir)
 
 def main(utils):
