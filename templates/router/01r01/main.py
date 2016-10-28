@@ -52,7 +52,7 @@ def setup_olsrd(utils, p):
     os.chdir(p)
 
 def setup_mdvrd(utils, p):
-    utils.exec("git clone https://github.com:hgn/mdvrd.git")
+    utils.exec("git clone https://github.com/hgn/mdvrd.git")
     os.chdir("{}".format(os.path.join(p, "mdvrd")))
     utils.exec("sudo make install_deps")
     utils.exec("sudo make install")
@@ -60,7 +60,7 @@ def setup_mdvrd(utils, p):
     os.chdir(p)
 
 def setup_ohnld(utils, p):
-    utils.exec("git clone https://github.com:hgn/ohnld.git")
+    utils.exec("git clone https://github.com/hgn/ohnld.git")
     os.chdir("{}".format(os.path.join(p, "ohnld")))
     utils.exec("sudo make install_deps")
     utils.exec("sudo make install")
